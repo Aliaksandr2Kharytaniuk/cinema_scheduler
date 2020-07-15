@@ -1,4 +1,5 @@
 import 'package:cinema_scheduler/app/common/search/search_text_field_widget.dart';
+import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/home/home_provider_model.dart';
 import 'package:cinema_scheduler/data/models/title/title_data.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +11,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const String EMPTY_LIST_VIEW_TEXT = "Enter any search query to start\nbrowse movies";
+  static const String EMPTY_LIST_VIEW_TEXT =
+      "Enter any search query to start\nbrowse movies";
   static const String LIST_VIEW_ERROR_TEXT = "Ooops! Some error has occurred";
   static const String MINUTES_TEXT = "min";
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProviderModel>(
-      builder: (context, HomeProviderModel provider, child) {
-        return _buildPage(context, provider);
-      },
+    return ChangeNotifierProvider(
+      create: (_) => HomeProviderModel(),
+      child: Consumer<HomeProviderModel>(
+        builder: (context, HomeProviderModel provider, child) {
+          return _buildPage(context, provider);
+        },
+      ),
     );
   }
 
@@ -82,17 +87,27 @@ class _HomePageState extends State<HomePage> {
   Widget _buildListViewItemWidget(AsyncSnapshot<dynamic> snapshot, int index) {
     return Card(
       elevation: 8.0,
-      margin: new EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      margin: new EdgeInsets.symmetric(
+        horizontal: 8.0,
+        vertical: 8.0,
+      ),
       child: Container(
         decoration: BoxDecoration(color: Colors.white70),
         child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 8.0,
+          ),
           leading:
               _buildListViewItemLeadingWidget(snapshot.data.results[index]),
           title: _buildListViewItemTitleWidget(snapshot.data.results[index]),
           subtitle:
               _buildListViewItemSubtitleWidget(snapshot.data.results[index]),
-          trailing: Icon(Icons.keyboard_arrow_right, size: 30.0),
+          trailing: Icon(
+            Icons.keyboard_arrow_right,
+            size: 30.0,
+            color: Colors.black12,
+          ),
         ),
       ),
     );
@@ -101,25 +116,35 @@ class _HomePageState extends State<HomePage> {
   Widget _buildListViewItemLeadingWidget(TitleData data) {
     return Container(
       padding: EdgeInsets.only(right: 12.0),
-      decoration: new BoxDecoration(
-        border:
-            new Border(right: new BorderSide(width: 1.0, color: Colors.grey)),
+      decoration: BoxDecoration(
+        border: Border(
+          right: BorderSide(
+            width: 1.0,
+            color: Colors.black12,
+          ),
+        ),
       ),
       child: Container(
         width: 50,
         height: 100,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
           image: DecorationImage(
-              image: NetworkImage(data.image?.url ?? ""), fit: BoxFit.contain),
+            image: NetworkImage(data.image?.url ?? ""),
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );
   }
 
   Widget _buildListViewItemTitleWidget(TitleData data) {
-    return Text(
-      '${data.title}',
-      style: TextStyle(fontWeight: FontWeight.bold),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Text(
+        '${data.title}',
+        style: ThemeProvider.getTextTheme(context).subtitle1,
+      ),
     );
   }
 
@@ -128,13 +153,17 @@ class _HomePageState extends State<HomePage> {
       children: <Widget>[
         Icon(
           Icons.calendar_today,
-          size: 12,
+          size: 10,
+          color: Colors.black45,
         ),
         SizedBox(
           width: 4,
         ),
         Text(
           '${data.year}',
+          style: ThemeProvider.getTextTheme(context)
+              .caption
+              .copyWith(color: Colors.black45),
         ),
         SizedBox(
           width: 12,
@@ -142,12 +171,16 @@ class _HomePageState extends State<HomePage> {
         Icon(
           Icons.timer,
           size: 12,
+          color: Colors.black45,
         ),
         SizedBox(
-          width: 4,
+          width: 2,
         ),
         Text(
           '${data.runningTimeInMinutes} ' + MINUTES_TEXT,
+          style: ThemeProvider.getTextTheme(context)
+              .caption
+              .copyWith(color: Colors.black45),
         ),
       ],
     );
@@ -166,7 +199,7 @@ class _HomePageState extends State<HomePage> {
           Icon(
             Icons.movie,
             size: 80,
-            color: Colors.grey,
+            color: Colors.black12,
           ),
           if (true)
             SizedBox(
@@ -175,6 +208,9 @@ class _HomePageState extends State<HomePage> {
           Text(
             EMPTY_LIST_VIEW_TEXT,
             textAlign: TextAlign.center,
+            style: ThemeProvider.getTextTheme(context).subtitle1.copyWith(
+                  color: Colors.black26,
+                ),
           ),
         ],
       ),

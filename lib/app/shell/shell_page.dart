@@ -17,28 +17,35 @@ class _ShellPageState extends State<ShellPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ShellProviderModel>(
-      builder: (context, ShellProviderModel provider, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(SCAFOLD_TITLE),
-          ),
-          body: IndexedStack(
-            index: provider.selectedPageIndex,
-            children: <Widget>[
-              HomePage(),
-              WatchListPage(),
-              RemindersPage(),
-              MorePage(),
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationWidget(
-            pages: provider.pages,
-            selectedIndex: provider.selectedPageIndex,
-            onTappedFunction: provider.onPageItemTapped,
-          ),
-        );
-      },
+    return ChangeNotifierProvider(
+      create: (_) => ShellProviderModel(),
+      child: Consumer<ShellProviderModel>(
+        builder: (context, ShellProviderModel provider, child) {
+          return _buildPage(context, provider);
+        },
+      ),
+    );
+  }
+
+  Widget _buildPage(BuildContext context, ShellProviderModel provider) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(SCAFOLD_TITLE),
+      ),
+      body: IndexedStack(
+        index: provider.selectedPageIndex,
+        children: <Widget>[
+          HomePage(),
+          WatchListPage(),
+          RemindersPage(),
+          MorePage(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationWidget(
+        pages: provider.pages,
+        selectedIndex: provider.selectedPageIndex,
+        onTappedFunction: provider.onPageItemTapped,
+      ),
     );
   }
 }

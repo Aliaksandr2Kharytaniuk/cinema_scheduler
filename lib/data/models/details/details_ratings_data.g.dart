@@ -9,10 +9,12 @@ part of 'details_ratings_data.dart';
 DetailsRatingsData _$DetailsRatingsDataFromJson(Map<String, dynamic> json) {
   return DetailsRatingsData(
     (json['rating'] as num)?.toDouble(),
+    json['ratingCount'] as int,
   );
 }
 
 Map<String, dynamic> _$DetailsRatingsDataToJson(DetailsRatingsData instance) =>
     <String, dynamic>{
       'rating': instance.rating,
+      'ratingCount': instance.ratingCount,
     };

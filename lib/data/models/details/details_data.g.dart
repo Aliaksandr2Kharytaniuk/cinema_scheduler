@@ -18,6 +18,7 @@ DetailsData _$DetailsDataFromJson(Map<String, dynamic> json) {
         ? null
         : DetailsPlotSummaryData.fromJson(
             json['plotSummary'] as Map<String, dynamic>),
+    (json['genres'] as List)?.map((e) => e as String)?.toList(),
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$DetailsDataToJson(DetailsData instance) =>
       'title': instance.title,
       'ratings': instance.ratings,
       'plotSummary': instance.plotSummary,
+      'genres': instance.genres,
     };

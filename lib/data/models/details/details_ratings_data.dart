@@ -5,9 +5,11 @@ part 'details_ratings_data.g.dart';
 @JsonSerializable()
 class DetailsRatingsData {
   final double rating;
+  final int ratingCount;
 
   DetailsRatingsData(
     this.rating,
+    this.ratingCount,
   );
 
   static const fromJsonFactory = _$DetailsRatingsDataFromJson;

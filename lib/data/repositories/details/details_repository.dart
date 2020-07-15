@@ -3,21 +3,29 @@ import 'package:cinema_scheduler/data/services/details/details_api_service.dart'
 import 'package:cinema_scheduler/core/dependences.dart';
 
 class DetailsRepository {
-  DetailsApiService _detailsApiService;
+  static DetailsApiService _detailsApiService;
 
   DetailsRepository() {
     _detailsApiService = DetailsApiService.create(createChopperClient());
   }
 
-  Future<DetailsData> loadSearchResults({
+  Future<DetailsData> loadOverviewDetails({
     String titleId,
   }) async {
-    final response = await _detailsApiService.getOverviewDetails(titleId: titleId);
+    var validTitleId = _getValidTitleId(titleId);
+    final response =
+        await _detailsApiService.getOverviewDetails(titleId: validTitleId);
 
     if (response.isSuccessful) {
       return response.body;
     }
-    
+
     return null;
+  }
+
+  String _getValidTitleId(String titleId) {
+    return titleId
+        .split("/")
+        .firstWhere((element) => element.contains(new RegExp(r'[0-9]')));
   }
 }

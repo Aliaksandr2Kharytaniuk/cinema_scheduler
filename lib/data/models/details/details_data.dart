@@ -10,11 +10,13 @@ class DetailsData {
   final TitleData title;
   final DetailsRatingsData ratings;
   final DetailsPlotSummaryData plotSummary;
+  final List<String> genres;
 
   DetailsData(
     this.title,
     this.ratings,
     this.plotSummary,
+    this.genres,
   );
 
   static const fromJsonFactory = _$DetailsDataFromJson;

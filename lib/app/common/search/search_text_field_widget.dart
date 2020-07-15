@@ -1,3 +1,4 @@
+import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextFieldWidget extends StatefulWidget {
@@ -23,11 +24,17 @@ class _SearchTextFieldWidgetState extends State<SearchTextFieldWidget> {
           textInputAction: TextInputAction.search,
           onSubmitted: widget.onSubmittedFunction,
           decoration: InputDecoration(
-            icon: Icon(Icons.search),
-            hintText: SEARCH_HINT_TEXT
+            icon: Icon(
+              Icons.search,
+              color: Colors.black45,
+            ),
+            hintText: SEARCH_HINT_TEXT,
+            hintStyle: ThemeProvider.getTextTheme(context).subtitle1.copyWith(
+                  color: Colors.black26,
+                ),
           ),
         ),
-      )
+      ),
     );
   }
 }
