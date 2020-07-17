@@ -1,3 +1,4 @@
+import 'package:cinema_scheduler/app/common/poster/poster_widget.dart';
 import 'package:cinema_scheduler/app/common/search/search_text_field_widget.dart';
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/home/home_provider_model.dart';
@@ -124,16 +125,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      child: Container(
-        width: 50,
-        height: 100,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-          image: DecorationImage(
-            image: NetworkImage(data.image?.url ?? ""),
-            fit: BoxFit.contain,
-          ),
-        ),
+      child: PosterWidget(
+        data.image?.url,
+        height: 50,
       ),
     );
   }

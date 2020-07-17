@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:cinema_scheduler/app/common/poster/poster_widget.dart';
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/details/details_provider_model.dart';
 import 'package:cinema_scheduler/app/details/rating_information_widget.dart';
 import 'package:cinema_scheduler/data/models/title/title_data.dart';
+import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +20,7 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsState extends State<DetailsPage> {
   static const String SCAFOLD_TITLE = "Details page";
+  static const String ADD_TO_WATCHLIST_LABEL = "Add to watchlist";
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +40,17 @@ class _DetailsState extends State<DetailsPage> {
         title: Text(SCAFOLD_TITLE),
       ),
       body: _buildScafoldBodyWidget(context, provider),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.blue,
         onPressed: () {},
-        child: Icon(Icons.add),
+        icon: Icon(Icons.add),
+        label: Text(
+          ADD_TO_WATCHLIST_LABEL,
+          style: ThemeProvider.getTextTheme(context).caption.copyWith(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
+        ),
       ),
     );
   }
@@ -80,8 +87,9 @@ class _DetailsState extends State<DetailsPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           PosterWidget(
-            provider.detailsModel.title.image.url,
+            provider.detailsModel?.title?.image?.url,
             height: 180.0,
+            shouldUseLoader: true,
           ),
           SizedBox(width: 24.0),
           Expanded(
@@ -99,11 +107,11 @@ class _DetailsState extends State<DetailsPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          provider.detailsModel.title.title,
+          '${provider.detailsModel?.title?.title}',
           style: ThemeProvider.getTextTheme(context).headline6,
         ),
         SizedBox(height: 12.0),
-        RatingInformationWidget(provider.detailsModel.ratings),
+        RatingInformationWidget(provider.detailsModel?.ratings),
         SizedBox(height: 8.0),
         Row(
           children: _buildHeaderGenresWidget(context, provider),
@@ -114,8 +122,8 @@ class _DetailsState extends State<DetailsPage> {
 
   List<Widget> _buildHeaderGenresWidget(
       BuildContext context, DetailsProviderModel provider) {
-    return provider.detailsModel.genres
-        .map((genre) {
+    return provider.detailsModel?.genres
+        ?.map((genre) {
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Chip(
@@ -125,16 +133,18 @@ class _DetailsState extends State<DetailsPage> {
             ),
           );
         })
-        .take(2)
-        .toList();
+        ?.take(2)
+        ?.toList();
   }
 
   Widget _buildDescriptionWidget(
       BuildContext context, DetailsProviderModel provider) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24),
-      child: Text(
-        provider.detailsModel.plotSummary.text,
+      child: ExpandText(
+        '${provider.detailsModel.plotSummary?.text}',
+        maxLines: 6,
+        arrowColor: Colors.black45,
         style: ThemeProvider.getTextTheme(context).bodyText2.copyWith(
               color: Colors.black45,
               fontSize: 16.0,
