@@ -17,7 +17,7 @@ class SearchRepository {
     if (response.isSuccessful) {
       return response.body;
     }
-    
+
     return null;
   }
 }

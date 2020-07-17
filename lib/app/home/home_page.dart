@@ -76,6 +76,11 @@ class _HomePageState extends State<HomePage> {
       scrollDirection: Axis.vertical,
       itemCount: snapshot.data.results.length,
       itemBuilder: (BuildContext context, int index) {
+        TitleData result = snapshot.data.results[index];
+        if (result.title == null || result.title.isEmpty) {
+          return SizedBox();
+        }
+        
         return GestureDetector(
           onTap: () =>
               provider.onListViewItemTapped(snapshot.data.results[index]),
@@ -145,39 +150,61 @@ class _HomePageState extends State<HomePage> {
   Widget _buildListViewItemSubtitleWidget(TitleData data) {
     return Row(
       children: <Widget>[
-        Icon(
-          Icons.calendar_today,
-          size: 10,
-          color: Colors.black45,
+        Visibility(
+          visible: data.year != null,
+          child: Row(
+            children: _buildListViewItemSubtitleYearWidget(data),
+          ),
         ),
-        SizedBox(
-          width: 4,
-        ),
-        Text(
-          '${data.year}',
-          style: ThemeProvider.getTextTheme(context)
-              .caption
-              .copyWith(color: Colors.black45),
-        ),
-        SizedBox(
-          width: 12,
-        ),
-        Icon(
-          Icons.timer,
-          size: 12,
-          color: Colors.black45,
-        ),
-        SizedBox(
-          width: 2,
-        ),
-        Text(
-          '${data.runningTimeInMinutes} ' + MINUTES_TEXT,
-          style: ThemeProvider.getTextTheme(context)
-              .caption
-              .copyWith(color: Colors.black45),
+        Visibility(
+          visible: data.runningTimeInMinutes != null,
+          child: Row(
+            children: _buildListViewItemSubtitleDurationWidget(data),
+          ),
         ),
       ],
     );
+  }
+
+  List<Widget> _buildListViewItemSubtitleYearWidget(TitleData data) {
+    return <Widget>[
+      Icon(
+        Icons.calendar_today,
+        size: 10,
+        color: Colors.black45,
+      ),
+      SizedBox(
+        width: 4,
+      ),
+      Text(
+        '${data.year}',
+        style: ThemeProvider.getTextTheme(context)
+            .caption
+            .copyWith(color: Colors.black45),
+      ),
+      SizedBox(
+        width: 12,
+      ),
+    ];
+  }
+
+  List<Widget> _buildListViewItemSubtitleDurationWidget(TitleData data) {
+    return <Widget>[
+      Icon(
+        Icons.timer,
+        size: 12,
+        color: Colors.black45,
+      ),
+      SizedBox(
+        width: 2,
+      ),
+      Text(
+        '${data.runningTimeInMinutes} ' + MINUTES_TEXT,
+        style: ThemeProvider.getTextTheme(context)
+            .caption
+            .copyWith(color: Colors.black45),
+      ),
+    ];
   }
 
   Widget _buildListViewErrorWidget() {
