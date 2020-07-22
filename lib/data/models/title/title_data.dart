@@ -3,13 +3,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'title_data.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class TitleData {
   final String id;
   final int runningTimeInMinutes;
   final String title;
   final int year;
-  final TitleImageData image; 
+  final TitleImageData image;
 
   TitleData(
     this.id,

@@ -5,14 +5,16 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'details_data.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class DetailsData {
+  final String id;
   final TitleData title;
   final DetailsRatingsData ratings;
   final DetailsPlotSummaryData plotSummary;
   final List<String> genres;
 
   DetailsData(
+    this.id,
     this.title,
     this.ratings,
     this.plotSummary,
