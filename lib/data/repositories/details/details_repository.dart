@@ -1,4 +1,3 @@
-import 'package:cinema_scheduler/core/database_manager.dart';
 import 'package:cinema_scheduler/data/models/details/details_data.dart';
 import 'package:cinema_scheduler/data/services/details/details_api_service.dart';
 import 'package:cinema_scheduler/core/dependences.dart';
@@ -10,21 +9,17 @@ class DetailsRepository {
     _detailsApiService = DetailsApiService.create(createChopperClient());
   }
 
-  Future<DetailsData> loadOverviewDetails({
+  Future<DetailsData> getDetails({
     String titleId,
   }) async {
-    var result = await _getDetailsDataFromDatabase(titleId);
+    var result = await _getDetailsDataFromCache(titleId);
 
     if (result == null) {
       result = await _getDetailsDataFromApi(titleId);
-      await _saveDetailsDataToDatabase(result);
+      await _setDetailsDataToCache(result);
     }
 
     return result;
-  }
-
-  Future<DetailsData> _getDetailsDataFromDatabase(String titleId) async {
-    return await DatabaseManager.instance.query(titleId);
   }
 
   Future<DetailsData> _getDetailsDataFromApi(String titleId) async {
@@ -38,9 +33,9 @@ class DetailsRepository {
     return null;
   }
 
-  Future _saveDetailsDataToDatabase(DetailsData data) async {
-    await DatabaseManager.instance.insert(data);
-  }
+  Future<DetailsData> _getDetailsDataFromCache(String titleId) async {}
+
+  Future _setDetailsDataToCache(DetailsData data) async {}
 
   String _getValidTitleId(String titleId) {
     return titleId

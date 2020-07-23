@@ -13,7 +13,7 @@ class DetailsProviderModel with ChangeNotifier {
 
   Future<void> _loadOverviewDetails(String titleId) async {
     isInLoading = true;
-    detailsModel = await detailsRepository.loadOverviewDetails(titleId: titleId);
+    detailsModel = await detailsRepository.getDetails(titleId: titleId);
     isInLoading = false;
 
     notifyListeners();
