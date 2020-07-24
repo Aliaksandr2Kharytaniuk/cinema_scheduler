@@ -1,9 +1,10 @@
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/shell/shell_page.dart';
-import 'package:cinema_scheduler/core/dependences.dart';
+import 'package:cinema_scheduler/core/services/dependency_service.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  DependencyService.registerDependencies();
   runApp(MainApp());
 }
 

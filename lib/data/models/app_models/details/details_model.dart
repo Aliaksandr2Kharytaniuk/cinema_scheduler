@@ -1,5 +1,6 @@
 import 'package:cinema_scheduler/data/models/app_models/details/details_plot_summary_model.dart';
 import 'package:cinema_scheduler/data/models/app_models/details/details_ratings_model.dart';
+import 'package:cinema_scheduler/data/models/app_models/model_base.dart';
 import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:cinema_scheduler/data/models/data_models/details/details_data.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -7,7 +8,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'details_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class DetailsModel {
+class DetailsModel extends ModelBase {
   final String id;
   final TitleModel title;
   final DetailsRatingsModel ratings;

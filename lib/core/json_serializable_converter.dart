@@ -1,5 +1,5 @@
 import 'package:chopper/chopper.dart';
-import 'package:cinema_scheduler/core/dependences.dart';
+import 'package:cinema_scheduler/core/services/dependency_service.dart';
 
 typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
 
@@ -47,6 +47,7 @@ class JsonSerializableConverter extends JsonConverter {
     }
 
     final jsonRes = super.convertResponse(response);
-    return jsonRes.copyWith<ResultType>(body: jsonDecoder.decode<Item>(jsonRes.body) as ResultType);
+    return jsonRes.copyWith<ResultType>(
+        body: jsonDecoder.decode<Item>(jsonRes.body) as ResultType);
   }
 }
