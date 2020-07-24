@@ -1,11 +1,11 @@
 import 'package:chopper/chopper.dart';
 import 'package:cinema_scheduler/core/json_serializable_converter.dart';
-import 'package:cinema_scheduler/data/models/details/details_data.dart';
-import 'package:cinema_scheduler/data/models/details/details_plot_summary_data.dart';
-import 'package:cinema_scheduler/data/models/details/details_ratings_data.dart';
-import 'package:cinema_scheduler/data/models/search/search_data.dart';
-import 'package:cinema_scheduler/data/models/title/title_data.dart';
-import 'package:cinema_scheduler/data/models/title/title_image_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_plot_summary_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_ratings_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/search/search_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/title/title_image_data.dart';
 import 'package:cinema_scheduler/data/repositories/details/details_repository.dart';
 import 'package:cinema_scheduler/data/repositories/search/search_repository.dart';
 import 'package:cinema_scheduler/core/services/navigation_service.dart';

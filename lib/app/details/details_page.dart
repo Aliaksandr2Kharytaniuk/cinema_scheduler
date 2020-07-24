@@ -2,13 +2,13 @@ import 'package:cinema_scheduler/app/common/poster/poster_widget.dart';
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/details/details_provider_model.dart';
 import 'package:cinema_scheduler/app/details/rating_information_widget.dart';
-import 'package:cinema_scheduler/data/models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DetailsPage extends StatefulWidget {
-  final TitleData titleModel;
+  final TitleModel titleModel;
 
   const DetailsPage({
     this.titleModel,

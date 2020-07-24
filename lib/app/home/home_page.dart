@@ -2,7 +2,7 @@ import 'package:cinema_scheduler/app/common/poster/poster_widget.dart';
 import 'package:cinema_scheduler/app/common/search/search_text_field_widget.dart';
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/home/home_provider_model.dart';
-import 'package:cinema_scheduler/data/models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -76,11 +76,11 @@ class _HomePageState extends State<HomePage> {
       scrollDirection: Axis.vertical,
       itemCount: snapshot.data.results.length,
       itemBuilder: (BuildContext context, int index) {
-        TitleData result = snapshot.data.results[index];
+        TitleModel result = snapshot.data.results[index];
         if (result.title == null || result.title.isEmpty) {
           return SizedBox();
         }
-        
+
         return GestureDetector(
           onTap: () =>
               provider.onListViewItemTapped(snapshot.data.results[index]),
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildListViewItemLeadingWidget(TitleData data) {
+  Widget _buildListViewItemLeadingWidget(TitleModel model) {
     return Container(
       padding: EdgeInsets.only(right: 12.0),
       decoration: BoxDecoration(
@@ -131,42 +131,42 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       child: PosterWidget(
-        data.image?.url,
+        model.image?.url,
         height: 50,
       ),
     );
   }
 
-  Widget _buildListViewItemTitleWidget(TitleData data) {
+  Widget _buildListViewItemTitleWidget(TitleModel model) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
-        '${data.title}',
+        '${model.title}',
         style: ThemeProvider.getTextTheme(context).subtitle1,
       ),
     );
   }
 
-  Widget _buildListViewItemSubtitleWidget(TitleData data) {
+  Widget _buildListViewItemSubtitleWidget(TitleModel model) {
     return Row(
       children: <Widget>[
         Visibility(
-          visible: data.year != null,
+          visible: model.year != null,
           child: Row(
-            children: _buildListViewItemSubtitleYearWidget(data),
+            children: _buildListViewItemSubtitleYearWidget(model),
           ),
         ),
         Visibility(
-          visible: data.runningTimeInMinutes != null,
+          visible: model.runningTimeInMinutes != null,
           child: Row(
-            children: _buildListViewItemSubtitleDurationWidget(data),
+            children: _buildListViewItemSubtitleDurationWidget(model),
           ),
         ),
       ],
     );
   }
 
-  List<Widget> _buildListViewItemSubtitleYearWidget(TitleData data) {
+  List<Widget> _buildListViewItemSubtitleYearWidget(TitleModel model) {
     return <Widget>[
       Icon(
         Icons.calendar_today,
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
         width: 4,
       ),
       Text(
-        '${data.year}',
+        '${model.year}',
         style: ThemeProvider.getTextTheme(context)
             .caption
             .copyWith(color: Colors.black45),
@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  List<Widget> _buildListViewItemSubtitleDurationWidget(TitleData data) {
+  List<Widget> _buildListViewItemSubtitleDurationWidget(TitleModel model) {
     return <Widget>[
       Icon(
         Icons.timer,
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
         width: 2,
       ),
       Text(
-        '${data.runningTimeInMinutes} ' + MINUTES_TEXT,
+        '${model.runningTimeInMinutes} ' + MINUTES_TEXT,
         style: ThemeProvider.getTextTheme(context)
             .caption
             .copyWith(color: Colors.black45),
@@ -222,10 +222,9 @@ class _HomePageState extends State<HomePage> {
             size: 80,
             color: Colors.black12,
           ),
-          if (true)
-            SizedBox(
-              height: 12,
-            ),
+          SizedBox(
+            height: 12,
+          ),
           Text(
             EMPTY_LIST_VIEW_TEXT,
             textAlign: TextAlign.center,

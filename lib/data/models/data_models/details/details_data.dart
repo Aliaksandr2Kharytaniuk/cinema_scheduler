@@ -1,6 +1,6 @@
-import 'package:cinema_scheduler/data/models/details/details_plot_summary_data.dart';
-import 'package:cinema_scheduler/data/models/details/details_ratings_data.dart';
-import 'package:cinema_scheduler/data/models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_plot_summary_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_ratings_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/title/title_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'details_data.g.dart';

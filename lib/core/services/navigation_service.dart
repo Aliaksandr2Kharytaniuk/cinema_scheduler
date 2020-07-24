@@ -1,7 +1,7 @@
 import 'package:cinema_scheduler/app/shell/shell_page.dart';
 import 'package:cinema_scheduler/app/details/details_page.dart';
 import 'package:cinema_scheduler/core/pages.dart';
-import 'package:cinema_scheduler/data/models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:flutter/material.dart';
 
 class NavigationService {
@@ -42,7 +42,7 @@ class NavigationService {
         resultPage = ShellPage();
         break;
       case Pages.details:
-        resultPage = DetailsPage(titleModel: arguments as TitleData);
+        resultPage = DetailsPage(titleModel: arguments as TitleModel);
         break;
       default:
         resultPage = ShellPage();

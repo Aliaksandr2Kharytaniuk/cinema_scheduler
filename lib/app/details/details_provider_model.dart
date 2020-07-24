@@ -1,13 +1,13 @@
 import 'package:cinema_scheduler/core/dependences.dart';
-import 'package:cinema_scheduler/data/models/details/details_data.dart';
-import 'package:cinema_scheduler/data/models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/app_models/details/details_model.dart';
+import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class DetailsProviderModel with ChangeNotifier {
-  DetailsData detailsModel;
+  DetailsModel detailsModel;
   bool isInLoading;
 
-  DetailsProviderModel(TitleData titleModel) {
+  DetailsProviderModel(TitleModel titleModel) {
     _loadOverviewDetails(titleModel.id);
   }
 

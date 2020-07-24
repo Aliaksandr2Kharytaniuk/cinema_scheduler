@@ -1,11 +1,11 @@
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
-import 'package:cinema_scheduler/data/models/details/details_ratings_data.dart';
+import 'package:cinema_scheduler/data/models/app_models/details/details_ratings_model.dart';
 import 'package:flutter/material.dart';
 
 class RatingInformationWidget extends StatelessWidget {
   static const String RATINGS_LABEL = "Ratings";
 
-  final DetailsRatingsData ratingsModel;
+  final DetailsRatingsModel ratingsModel;
 
   RatingInformationWidget(this.ratingsModel);
 

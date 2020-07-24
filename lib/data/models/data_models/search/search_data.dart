@@ -1,4 +1,4 @@
-import 'package:cinema_scheduler/data/models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/title/title_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'search_data.g.dart';

@@ -1,4 +1,4 @@
-import 'package:cinema_scheduler/data/models/search/search_data.dart';
+import 'package:cinema_scheduler/data/models/app_models/search/search_model.dart';
 import 'package:cinema_scheduler/data/services/search/search_api_service.dart';
 import 'package:cinema_scheduler/core/dependences.dart';
 
@@ -9,13 +9,13 @@ class SearchRepository {
     _searchApiService = SearchApiService.create(createChopperClient());
   }
 
-  Future<SearchData> loadSearchResults({
+  Future<SearchModel> loadSearchResults({
     String searchQuery,
   }) async {
     final response = await _searchApiService.search(searchQuery: searchQuery);
 
     if (response.isSuccessful) {
-      return response.body;
+      return SearchModel.fromSearchData(response.body);
     }
 
     return null;
