@@ -8,7 +8,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'details_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class DetailsModel extends ModelBase {
+class DetailsModel implements ModelBase {
+  @override
   final String id;
   final TitleModel title;
   final DetailsRatingsModel ratings;

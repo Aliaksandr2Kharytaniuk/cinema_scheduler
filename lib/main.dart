@@ -14,12 +14,12 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  static const String _materialAppTitle = "Cinema scheduller application";
+  static const String MATERIAL_APP_TITLE = "Cinema scheduller application";
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _materialAppTitle,
+      title: MATERIAL_APP_TITLE,
       navigatorKey: navigationService.navigatorKey,
       home: ShellPage(),
       theme: ThemeProvider.getTheme(context),

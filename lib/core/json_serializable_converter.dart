@@ -1,43 +1,22 @@
 import 'package:chopper/chopper.dart';
-import 'package:cinema_scheduler/core/services/dependency_service.dart';
-
-typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
-
-class CustomJsonDecoder {
-  CustomJsonDecoder(this.factories);
-
-  final Map<Type, JsonFactory> factories;
-
-  dynamic decode<T>(dynamic entity) {
-    if (entity is Iterable) {
-      return _decodeList<T>(entity);
-    }
-
-    if (entity is T) {
-      return entity;
-    }
-
-    if (entity is Map<String, dynamic>) {
-      return _decodeMap<T>(entity);
-    }
-
-    return entity;
-  }
-
-  T _decodeMap<T>(Map<String, dynamic> values) {
-    final jsonFactory = factories[T];
-    if (jsonFactory == null || jsonFactory is! JsonFactory<T>) {
-      return throw "Could not find factory for type $T. Is '$T: $T.fromJsonFactory' included in the CustomJsonDecoder instance creation in bootstrapper.dart?";
-    }
-
-    return jsonFactory(values) as T;
-  }
-
-  List<T> _decodeList<T>(Iterable values) =>
-      values.where((v) => v != null).map<T>((v) => decode<T>(v) as T).toList();
-}
+import 'package:cinema_scheduler/core/custom_json_decoder.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_plot_summary_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/details/details_ratings_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/search/search_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/title/title_data.dart';
+import 'package:cinema_scheduler/data/models/data_models/title/title_image_data.dart';
 
 class JsonSerializableConverter extends JsonConverter {
+  final _jsonDecoder = CustomJsonDecoder({
+    SearchData: SearchData.fromJsonFactory,
+    TitleData: TitleData.fromJsonFactory,
+    TitleImageData: TitleImageData.fromJsonFactory,
+    DetailsData: DetailsData.fromJsonFactory,
+    DetailsRatingsData: DetailsRatingsData.fromJsonFactory,
+    DetailsPlotSummaryData: DetailsPlotSummaryData.fromJsonFactory,
+  });
+
   @override
   Response<ResultType> convertResponse<ResultType, Item>(Response response) {
     if (response.bodyString.isEmpty) {
@@ -48,6 +27,6 @@ class JsonSerializableConverter extends JsonConverter {
 
     final jsonRes = super.convertResponse(response);
     return jsonRes.copyWith<ResultType>(
-        body: jsonDecoder.decode<Item>(jsonRes.body) as ResultType);
+        body: _jsonDecoder.decode<Item>(jsonRes.body) as ResultType);
   }
 }
