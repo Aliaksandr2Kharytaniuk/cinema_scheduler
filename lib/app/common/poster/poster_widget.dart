@@ -8,7 +8,7 @@ class PosterWidget extends StatelessWidget {
   final double height;
   final bool shouldUseLoader;
 
-  PosterWidget(
+  const PosterWidget(
     this.posterUrl, {
     this.height = 100.0,
     this.shouldUseLoader = false,

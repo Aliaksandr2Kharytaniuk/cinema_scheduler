@@ -7,7 +7,9 @@ class RatingInformationWidget extends StatelessWidget {
 
   final DetailsRatingsModel ratingsModel;
 
-  RatingInformationWidget(this.ratingsModel);
+  const RatingInformationWidget({
+    @required this.ratingsModel,
+  });
 
   @override
   Widget build(BuildContext context) {

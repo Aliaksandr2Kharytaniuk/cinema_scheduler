@@ -11,7 +11,7 @@ class DetailsPage extends StatefulWidget {
   final TitleModel titleModel;
 
   const DetailsPage({
-    this.titleModel,
+    @required this.titleModel,
   });
 
   @override
@@ -111,7 +111,9 @@ class _DetailsState extends State<DetailsPage> {
           style: ThemeProvider.getTextTheme(context).headline6,
         ),
         SizedBox(height: 12.0),
-        RatingInformationWidget(provider.detailsModel?.ratings),
+        RatingInformationWidget(
+          ratingsModel: provider.detailsModel?.ratings,
+        ),
         SizedBox(height: 8.0),
         Row(
           children: _buildHeaderGenresWidget(context, provider),

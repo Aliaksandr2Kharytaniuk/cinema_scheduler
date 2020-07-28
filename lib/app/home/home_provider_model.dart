@@ -8,7 +8,7 @@ class HomeProviderModel with ChangeNotifier {
   Future<SearchModel> searchDataFuture;
 
   void onSearchSubmitted(String value) {
-    searchDataFuture = loadSearchResults(value);
+    searchDataFuture = _loadSearchResults(value);
     notifyListeners();
   }
 
@@ -16,7 +16,7 @@ class HomeProviderModel with ChangeNotifier {
     navigationService.navigateTo(Pages.details, arguments: listViewItem);
   }
 
-  Future<SearchModel> loadSearchResults(String value) async {
+  Future<SearchModel> _loadSearchResults(String value) async {
     return await searchRepository.loadSearchResults(searchQuery: value);
   }
 }
