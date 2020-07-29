@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class MoviesListViewWidget extends StatefulWidget {
   final List<TitleModel> items;
   final String emptyListViewText;
+  final Function(TitleModel) onItemTappedFunction;
 
   const MoviesListViewWidget({
     @required this.items,
     @required this.emptyListViewText,
+    @required this.onItemTappedFunction,
   });
 
   @override
@@ -34,7 +36,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
       itemCount: widget.items.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
-          onTap: () => {},
+          onTap: () => widget.onItemTappedFunction(widget.items[index]),
           child: _buildListViewItemWidget(index),
         );
       },

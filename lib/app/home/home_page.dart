@@ -1,6 +1,7 @@
 import 'package:cinema_scheduler/app/common/movies_listview/movies_listview_widget.dart';
 import 'package:cinema_scheduler/app/common/search/search_text_field_widget.dart';
 import 'package:cinema_scheduler/app/home/home_provider_model.dart';
+import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,8 +69,9 @@ class _HomePageState extends State<HomePage> {
   Widget _buildListViewWidget(
       AsyncSnapshot<dynamic> snapshot, HomeProviderModel provider) {
     return MoviesListViewWidget(
-      items: snapshot.data.results,
+      items: snapshot.data?.results,
       emptyListViewText: EMPTY_LIST_VIEW_TEXT,
+      onItemTappedFunction: provider.onListViewItemTapped,
     );
   }
 
