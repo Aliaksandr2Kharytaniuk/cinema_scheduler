@@ -1,3 +1,4 @@
+import 'package:cinema_scheduler/data/models/app_models/model_base.dart';
 import 'package:cinema_scheduler/data/models/app_models/title/title_image_model.dart';
 import 'package:cinema_scheduler/data/models/data_models/title/title_data.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -5,7 +6,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'title_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class TitleModel {
+class TitleModel implements ModelBase {
+  @override
   final String id;
   final int runningTimeInMinutes;
   final String title;

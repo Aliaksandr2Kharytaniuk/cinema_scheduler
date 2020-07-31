@@ -2,6 +2,7 @@ import 'package:cinema_scheduler/app/common/poster/poster_widget.dart';
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/details/details_provider_model.dart';
 import 'package:cinema_scheduler/app/details/rating_information_widget.dart';
+import 'package:cinema_scheduler/app/watch_list/watch_list_provider_model.dart';
 import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,36 +22,37 @@ class DetailsPage extends StatefulWidget {
 class _DetailsState extends State<DetailsPage> {
   static const String SCAFOLD_TITLE = "Details page";
   static const String ADD_TO_WATCHLIST_LABEL = "Add to watchlist";
+  static const String REMOVE_FROM_WATCHLIST_LABEL = "Remove from watchlist";
 
   @override
   Widget build(BuildContext context) {
+    final watchlistProvider =
+        Provider.of<WatchlistProviderModel>(context, listen: false);
+
     return ChangeNotifierProvider(
       create: (_) => DetailsProviderModel(widget.titleModel),
       child: Consumer<DetailsProviderModel>(
         builder: (context, DetailsProviderModel provider, child) {
-          return _buildPage(context, provider);
+          return _buildPage(context, provider, watchlistProvider);
         },
       ),
     );
   }
 
-  Widget _buildPage(BuildContext context, DetailsProviderModel provider) {
+  Widget _buildPage(
+    BuildContext context,
+    DetailsProviderModel provider,
+    WatchlistProviderModel watchlistProvider,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(SCAFOLD_TITLE),
       ),
       body: _buildScafoldBodyWidget(context, provider),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.blue,
-        onPressed: () {},
-        icon: Icon(Icons.add),
-        label: Text(
-          ADD_TO_WATCHLIST_LABEL,
-          style: ThemeProvider.getTextTheme(context).caption.copyWith(
-                color: Colors.white,
-                fontSize: 16.0,
-              ),
-        ),
+      floatingActionButton: _buildScafoldFloatingActionButtonWidget(
+        context,
+        provider,
+        watchlistProvider,
       ),
     );
   }
@@ -74,6 +76,72 @@ class _DetailsState extends State<DetailsPage> {
           _buildDescriptionWidget(context, provider),
           SizedBox(height: 24.0),
         ],
+      ),
+    );
+  }
+
+  Widget _buildScafoldFloatingActionButtonWidget(
+    BuildContext context,
+    DetailsProviderModel provider,
+    WatchlistProviderModel watchlistProvider,
+  ) {
+    if (provider.isInLoading == true) {
+      return null;
+    }
+
+    return provider.isInWatchlist
+        ? _buildRemoveFromWatchlistFloatingActionButtonWidget(
+            context,
+            provider,
+            watchlistProvider,
+          )
+        : _buildAddToWatchlistFloatingActionButtonWidget(
+            context,
+            provider,
+            watchlistProvider,
+          );
+  }
+
+  Widget _buildAddToWatchlistFloatingActionButtonWidget(
+    BuildContext context,
+    DetailsProviderModel provider,
+    WatchlistProviderModel watchlistProvider,
+  ) {
+    return FloatingActionButton.extended(
+      backgroundColor: Colors.blue,
+      onPressed: () => {
+        provider.onFloatingActionButtonTapped(),
+        watchlistProvider.addToWatchlist(provider.detailsModel.title)
+      },
+      icon: Icon(Icons.add),
+      label: Text(
+        ADD_TO_WATCHLIST_LABEL,
+        style: ThemeProvider.getTextTheme(context).caption.copyWith(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+      ),
+    );
+  }
+
+  Widget _buildRemoveFromWatchlistFloatingActionButtonWidget(
+    BuildContext context,
+    DetailsProviderModel provider,
+    WatchlistProviderModel watchlistProvider,
+  ) {
+    return FloatingActionButton.extended(
+      backgroundColor: Colors.blue,
+      onPressed: () => {
+        provider.onFloatingActionButtonTapped(),
+        watchlistProvider.removeFromWatchlist(provider.detailsModel.title)
+      },
+      icon: Icon(Icons.remove),
+      label: Text(
+        REMOVE_FROM_WATCHLIST_LABEL,
+        style: ThemeProvider.getTextTheme(context).caption.copyWith(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
       ),
     );
   }

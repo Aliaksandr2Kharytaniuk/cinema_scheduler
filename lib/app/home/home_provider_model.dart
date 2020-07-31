@@ -9,7 +9,6 @@ class HomeProviderModel with ChangeNotifier {
 
   void onSearchSubmitted(String value) {
     searchDataFuture = _loadSearchResults(value);
-    notifyListeners();
   }
 
   void onListViewItemTapped(TitleModel listViewItem) {

@@ -5,17 +5,27 @@ import 'package:flutter/cupertino.dart';
 
 class DetailsProviderModel with ChangeNotifier {
   DetailsModel detailsModel;
+  bool isInWatchlist;
   bool isInLoading;
 
   DetailsProviderModel(TitleModel titleModel) {
     _loadOverviewDetails(titleModel.id);
   }
 
-  Future<void> _loadOverviewDetails(String titleId) async {
-    isInLoading = true;
-    detailsModel = await detailsRepository.getDetails(titleId: titleId);
-    isInLoading = false;
+  Future onFloatingActionButtonTapped() async {
+    isInWatchlist = !isInWatchlist;
+    notifyListeners();
+  }
 
+  Future _loadOverviewDetails(String titleId) async {
+    isInLoading = true;
+    notifyListeners();
+
+    detailsModel = await detailsRepository.getDetails(titleId: titleId);
+    isInWatchlist =
+        await watchlistRepository.isItemWatchlisted(titleId: titleId);
+
+    isInLoading = false;
     notifyListeners();
   }
 }

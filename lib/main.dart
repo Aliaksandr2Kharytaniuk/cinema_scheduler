@@ -1,7 +1,13 @@
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
-import 'package:cinema_scheduler/app/shell/shell_page.dart';
+import 'package:cinema_scheduler/app/home/home_provider_model.dart';
+import 'package:cinema_scheduler/app/shell/shell_provider_model.dart';
+import 'package:cinema_scheduler/app/watch_list/watch_list_provider_model.dart';
+import 'package:cinema_scheduler/app/decorations/assets.dart';
+import 'package:cinema_scheduler/core/pages.dart';
 import 'package:cinema_scheduler/core/services/dependency_service.dart';
+import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   DependencyService.registerDependencies();
@@ -18,11 +24,25 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: MATERIAL_APP_TITLE,
-      navigatorKey: navigationService.navigatorKey,
-      home: ShellPage(),
-      theme: ThemeProvider.getTheme(context),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ShellProviderModel()),
+        ChangeNotifierProvider(create: (_) => HomeProviderModel()),
+        ChangeNotifierProvider(create: (_) => WatchlistProviderModel()),
+      ],
+      child: MaterialApp(
+        title: MATERIAL_APP_TITLE,
+        navigatorKey: navigationService.navigatorKey,
+        home: SplashScreen.callback(
+          name: Assets.SPLASH_LOADER,
+          onSuccess: (_) =>
+              navigationService.navigateWithReplacementTo(Pages.shell),
+          onError: null,
+          until: () => Future.delayed(const Duration()),
+          startAnimation: "1",
+        ),
+        theme: ThemeProvider.getTheme(context),
+      ),
     );
   }
 }

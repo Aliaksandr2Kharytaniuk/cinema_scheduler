@@ -1,7 +1,6 @@
 import 'package:cinema_scheduler/app/common/movies_listview/movies_listview_widget.dart';
 import 'package:cinema_scheduler/app/common/search/search_text_field_widget.dart';
 import 'package:cinema_scheduler/app/home/home_provider_model.dart';
-import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,13 +16,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeProviderModel(),
-      child: Consumer<HomeProviderModel>(
-        builder: (context, HomeProviderModel provider, child) {
-          return _buildPage(provider);
-        },
-      ),
+    return Consumer<HomeProviderModel>(
+      builder: (context, HomeProviderModel provider, child) {
+        return _buildPage(provider);
+      },
     );
   }
 
