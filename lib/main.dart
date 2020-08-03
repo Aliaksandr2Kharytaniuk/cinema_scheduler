@@ -21,6 +21,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   static const String MATERIAL_APP_TITLE = "Cinema scheduller application";
+  static const String START_ANIMATION_KEY = "loading";
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,9 @@ class _MainAppState extends State<MainApp> {
               navigationService.navigateWithReplacementTo(Pages.shell),
           onError: null,
           until: () => Future.delayed(const Duration()),
-          startAnimation: "1",
+          startAnimation: START_ANIMATION_KEY,
+          backgroundColor:
+              ThemeProvider.getTheme(context).scaffoldBackgroundColor,
         ),
         theme: ThemeProvider.getTheme(context),
       ),
