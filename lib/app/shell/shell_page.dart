@@ -13,8 +13,6 @@ class ShellPage extends StatefulWidget {
 }
 
 class _ShellPageState extends State<ShellPage> {
-  static const String SCAFOLD_TITLE = "Cinema scheduler";
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -30,7 +28,7 @@ class _ShellPageState extends State<ShellPage> {
   Widget _buildPage(BuildContext context, ShellProviderModel provider) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(SCAFOLD_TITLE),
+        title: Text(provider.pageTitle),
       ),
       body: IndexedStack(
         index: provider.selectedPageIndex,

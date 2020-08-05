@@ -3,6 +3,7 @@ import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/details/details_provider_model.dart';
 import 'package:cinema_scheduler/app/details/rating_information_widget.dart';
 import 'package:cinema_scheduler/app/watch_list/watch_list_provider_model.dart';
+import 'package:cinema_scheduler/core/defines/pages_defines.dart';
 import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,6 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsState extends State<DetailsPage> {
-  static const String SCAFOLD_TITLE = "Details page";
   static const String ADD_TO_WATCHLIST_LABEL = "Add to watchlist";
   static const String REMOVE_FROM_WATCHLIST_LABEL = "Remove from watchlist";
 
@@ -46,7 +46,7 @@ class _DetailsState extends State<DetailsPage> {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(SCAFOLD_TITLE),
+        title: Text(PagesDefines.DETAILS_PAGE_TITLE),
       ),
       body: _buildScafoldBodyWidget(context, provider),
       floatingActionButton: _buildScafoldFloatingActionButtonWidget(
