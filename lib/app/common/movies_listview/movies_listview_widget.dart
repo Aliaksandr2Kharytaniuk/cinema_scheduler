@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 class MoviesListViewWidget extends StatefulWidget {
   final List<TitleModel> items;
+  final IconData emptyListViewIconData;
   final String emptyListViewText;
   final Function(TitleModel) onItemTappedFunction;
 
   const MoviesListViewWidget({
     @required this.items,
+    @required this.emptyListViewIconData,
     @required this.emptyListViewText,
     @required this.onItemTappedFunction,
   });
@@ -165,7 +167,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Icon(
-            Icons.movie,
+            widget.emptyListViewIconData,
             size: 80,
             color: Colors.black12,
           ),

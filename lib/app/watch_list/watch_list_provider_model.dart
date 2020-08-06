@@ -26,10 +26,10 @@ class WatchlistProviderModel with ChangeNotifier {
   }
 
   void _setWatchlistDataFuture() {
-    watchlistDataFuture = _loadWatclistItems();
+    watchlistDataFuture = _loadWatchlistItems();
   }
 
-  Future<List<TitleModel>> _loadWatclistItems() async {
+  Future<List<TitleModel>> _loadWatchlistItems() async {
     isInLoading = true;
     notifyListeners();
 

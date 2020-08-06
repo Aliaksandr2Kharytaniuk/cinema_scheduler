@@ -2,6 +2,7 @@ import 'package:cinema_scheduler/app/common/poster/poster_widget.dart';
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/details/details_provider_model.dart';
 import 'package:cinema_scheduler/app/details/rating_information_widget.dart';
+import 'package:cinema_scheduler/app/reminders/reminders_provider_model.dart';
 import 'package:cinema_scheduler/app/watch_list/watch_list_provider_model.dart';
 import 'package:cinema_scheduler/core/defines/pages_defines.dart';
 import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
@@ -23,17 +24,21 @@ class DetailsPage extends StatefulWidget {
 class _DetailsState extends State<DetailsPage> {
   static const String ADD_TO_WATCHLIST_LABEL = "Add to watchlist";
   static const String REMOVE_FROM_WATCHLIST_LABEL = "Remove from watchlist";
+  static const String REMINDERS_HERO_TAG = "rht";
 
   @override
   Widget build(BuildContext context) {
     final watchlistProvider =
         Provider.of<WatchlistProviderModel>(context, listen: false);
+    final remindersProvider =
+        Provider.of<RemindersProviderModel>(context, listen: false);
 
     return ChangeNotifierProvider(
       create: (_) => DetailsProviderModel(widget.titleModel),
       child: Consumer<DetailsProviderModel>(
         builder: (context, DetailsProviderModel provider, child) {
-          return _buildPage(context, provider, watchlistProvider);
+          return _buildPage(
+              context, provider, watchlistProvider, remindersProvider);
         },
       ),
     );
@@ -43,6 +48,7 @@ class _DetailsState extends State<DetailsPage> {
     BuildContext context,
     DetailsProviderModel provider,
     WatchlistProviderModel watchlistProvider,
+    RemindersProviderModel remindersProvider,
   ) {
     return Scaffold(
       appBar: AppBar(
@@ -53,6 +59,7 @@ class _DetailsState extends State<DetailsPage> {
         context,
         provider,
         watchlistProvider,
+        remindersProvider,
       ),
     );
   }
@@ -84,6 +91,7 @@ class _DetailsState extends State<DetailsPage> {
     BuildContext context,
     DetailsProviderModel provider,
     WatchlistProviderModel watchlistProvider,
+    RemindersProviderModel remindersProvider,
   ) {
     if (provider.isInLoading == true) {
       return null;
@@ -94,6 +102,7 @@ class _DetailsState extends State<DetailsPage> {
             context,
             provider,
             watchlistProvider,
+            remindersProvider,
           )
         : _buildAddToWatchlistFloatingActionButtonWidget(
             context,
@@ -110,8 +119,10 @@ class _DetailsState extends State<DetailsPage> {
     return FloatingActionButton.extended(
       backgroundColor: Colors.blue,
       onPressed: () => {
-        provider.onFloatingActionButtonTapped(),
-        watchlistProvider.addToWatchlist(provider.detailsModel.title)
+        provider.onAddToWatchlistFloatingActionButtonTapped(
+          titleModel: provider.detailsModel.title,
+          watchlistProvider: watchlistProvider,
+        ),
       },
       icon: Icon(Icons.add),
       label: Text(
@@ -128,21 +139,93 @@ class _DetailsState extends State<DetailsPage> {
     BuildContext context,
     DetailsProviderModel provider,
     WatchlistProviderModel watchlistProvider,
+    RemindersProviderModel remindersProvider,
   ) {
-    return FloatingActionButton.extended(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _buildRemindersFloatingActionButtonWidget(
+          context,
+          provider,
+          remindersProvider,
+        ),
+        SizedBox(
+          width: 12,
+        ),
+        FloatingActionButton.extended(
+          backgroundColor: Colors.blue,
+          onPressed: () => {
+            provider.onRemoveFromWatchlistFloatingActionButtonTapped(
+              titleModel: provider.detailsModel.title,
+              watchlistProvider: watchlistProvider,
+              remindersProvider: remindersProvider,
+            ),
+          },
+          icon: Icon(Icons.remove),
+          label: Text(
+            REMOVE_FROM_WATCHLIST_LABEL,
+            style: ThemeProvider.getTextTheme(context).caption.copyWith(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildRemindersFloatingActionButtonWidget(
+    BuildContext context,
+    DetailsProviderModel provider,
+    RemindersProviderModel remindersProvider,
+  ) {
+    return provider.isInReminders
+        ? _buildRemoveFromRemindersFloatingActionButtonWidget(
+            context,
+            provider,
+            remindersProvider,
+          )
+        : _buildAddToRemindersFloatingActionButtonWidget(
+            context,
+            provider,
+            remindersProvider,
+          );
+  }
+
+  Widget _buildAddToRemindersFloatingActionButtonWidget(
+    BuildContext context,
+    DetailsProviderModel provider,
+    RemindersProviderModel remindersProvider,
+  ) {
+    return FloatingActionButton(
       backgroundColor: Colors.blue,
       onPressed: () => {
-        provider.onFloatingActionButtonTapped(),
-        watchlistProvider.removeFromWatchlist(provider.detailsModel.title)
+        provider.onAddToRemindersFloatingActionButtonTapped(
+          titleModel: provider.detailsModel.title,
+          remindersProvider: remindersProvider,
+        ),
       },
-      icon: Icon(Icons.remove),
-      label: Text(
-        REMOVE_FROM_WATCHLIST_LABEL,
-        style: ThemeProvider.getTextTheme(context).caption.copyWith(
-              color: Colors.white,
-              fontSize: 16.0,
-            ),
-      ),
+      child: Icon(Icons.notifications_active),
+      heroTag: REMINDERS_HERO_TAG,
+    );
+  }
+
+  Widget _buildRemoveFromRemindersFloatingActionButtonWidget(
+    BuildContext context,
+    DetailsProviderModel provider,
+    RemindersProviderModel remindersProvider,
+  ) {
+    return FloatingActionButton(
+      backgroundColor: Colors.blue,
+      onPressed: () => {
+        provider.onRemoveFromRemindersFloatingActionButtonTapped(
+          titleModel: provider.detailsModel.title,
+          remindersProvider: remindersProvider,
+        ),
+      },
+      child: Icon(Icons.notifications_off),
+      heroTag: REMINDERS_HERO_TAG,
     );
   }
 

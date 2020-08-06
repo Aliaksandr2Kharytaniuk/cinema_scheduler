@@ -1,5 +1,6 @@
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/home/home_provider_model.dart';
+import 'package:cinema_scheduler/app/reminders/reminders_provider_model.dart';
 import 'package:cinema_scheduler/app/shell/shell_provider_model.dart';
 import 'package:cinema_scheduler/app/watch_list/watch_list_provider_model.dart';
 import 'package:cinema_scheduler/app/decorations/assets.dart';
@@ -30,6 +31,7 @@ class _MainAppState extends State<MainApp> {
         ChangeNotifierProvider(create: (_) => ShellProviderModel()),
         ChangeNotifierProvider(create: (_) => HomeProviderModel()),
         ChangeNotifierProvider(create: (_) => WatchlistProviderModel()),
+        ChangeNotifierProvider(create: (_) => RemindersProviderModel()),
       ],
       child: MaterialApp(
         title: MATERIAL_APP_TITLE,

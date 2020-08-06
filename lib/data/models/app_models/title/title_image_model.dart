@@ -23,12 +23,14 @@ class TitleImageModel {
       _$TitleImageModelFromJson(json);
 
   factory TitleImageModel.fromTitleImageData(TitleImageData data) =>
-      TitleImageModel(
-        id: data.id,
-        width: data.width,
-        height: data.height,
-        url: data.url,
-      );
+      data == null
+          ? null
+          : TitleImageModel(
+              id: data.id,
+              width: data.width,
+              height: data.height,
+              url: data.url,
+            );
 
   Map<String, dynamic> toJson() => _$TitleImageModelToJson(this);
 }

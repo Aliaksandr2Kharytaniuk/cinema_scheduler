@@ -52,6 +52,7 @@ class _WatchListState extends State<WatchListPage> {
       AsyncSnapshot<dynamic> snapshot, WatchlistProviderModel provider) {
     return MoviesListViewWidget(
       items: snapshot.data,
+      emptyListViewIconData: Icons.list,
       emptyListViewText: EMPTY_LIST_VIEW_TEXT,
       onItemTappedFunction: provider.onListViewItemTapped,
     );

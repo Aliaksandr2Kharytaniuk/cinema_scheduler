@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
       AsyncSnapshot<dynamic> snapshot, HomeProviderModel provider) {
     return MoviesListViewWidget(
       items: snapshot.data?.results,
+      emptyListViewIconData: Icons.search,
       emptyListViewText: EMPTY_LIST_VIEW_TEXT,
       onItemTappedFunction: provider.onListViewItemTapped,
     );
