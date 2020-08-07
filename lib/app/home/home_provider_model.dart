@@ -6,9 +6,15 @@ import 'package:flutter/cupertino.dart';
 
 class HomeProviderModel with ChangeNotifier {
   Future<SearchModel> searchDataFuture;
+  bool isInLoading;
 
   void onSearchSubmitted(String value) {
-    searchDataFuture = _loadSearchResults(value);
+    if (value.trim().isEmpty) {
+      searchDataFuture = Future.value(null);
+      notifyListeners();
+    } else {
+      searchDataFuture = _loadSearchResults(value);
+    }
   }
 
   void onListViewItemTapped(TitleModel listViewItem) {
@@ -16,6 +22,14 @@ class HomeProviderModel with ChangeNotifier {
   }
 
   Future<SearchModel> _loadSearchResults(String value) async {
-    return await searchRepository.loadSearchResults(searchQuery: value);
+    isInLoading = true;
+    notifyListeners();
+
+    final result = await searchRepository.loadSearchResults(searchQuery: value);
+
+    isInLoading = false;
+    notifyListeners();
+
+    return result;
   }
 }

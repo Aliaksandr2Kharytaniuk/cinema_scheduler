@@ -27,6 +27,8 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: EdgeInsets.only(top: 24),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           _buildSearchWidget(provider),
           SizedBox(
@@ -48,6 +50,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildContentWidget(BuildContext context, HomeProviderModel provider) {
+    if (provider.isInLoading == true) {
+      return Flexible(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Flexible(
       child: FutureBuilder(
         future: provider.searchDataFuture,
