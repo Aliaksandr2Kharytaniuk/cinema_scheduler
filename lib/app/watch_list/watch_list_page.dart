@@ -1,3 +1,4 @@
+import 'package:cinema_scheduler/app/common/general_page_error_widget.dart';
 import 'package:cinema_scheduler/app/common/movies_listview/movies_listview_widget.dart';
 import 'package:cinema_scheduler/app/watch_list/watch_list_provider_model.dart';
 import 'package:flutter/material.dart';
@@ -24,41 +25,35 @@ class _WatchListState extends State<WatchListPage> {
 
   Widget _buildPage(WatchlistProviderModel provider) {
     if (provider.isInLoading == true) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      return _buildDataLoadingWidget();
+    }
+
+    if (provider.isErrorOccurred == true) {
+      return _buildDataErrorWidget();
     }
 
     return Padding(
       padding: EdgeInsets.only(top: 24),
-      child: _buildContentWidget(provider),
+      child: _buildListViewWidget(provider),
     );
   }
 
-  Widget _buildContentWidget(WatchlistProviderModel provider) {
-    return FutureBuilder(
-      future: provider.watchlistDataFuture,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return _buildDataErrorWidget();
-        }
-
-        return _buildListViewWidget(snapshot, provider);
-      },
-    );
-  }
-
-  Widget _buildListViewWidget(
-      AsyncSnapshot<dynamic> snapshot, WatchlistProviderModel provider) {
+  Widget _buildListViewWidget(WatchlistProviderModel provider) {
     return MoviesListViewWidget(
-      items: snapshot.data,
+      items: provider.watchlistCollection,
       emptyListViewIconData: Icons.list,
       emptyListViewText: EMPTY_LIST_VIEW_TEXT,
       onItemTappedFunction: provider.onListViewItemTapped,
     );
   }
 
+  Widget _buildDataLoadingWidget() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
   Widget _buildDataErrorWidget() {
-    return Text(LIST_VIEW_ERROR_TEXT);
+    return GeneralPageErrorWidget();
   }
 }

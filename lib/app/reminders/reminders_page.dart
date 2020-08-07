@@ -1,3 +1,4 @@
+import 'package:cinema_scheduler/app/common/general_page_error_widget.dart';
 import 'package:cinema_scheduler/app/common/movies_listview/movies_listview_widget.dart';
 import 'package:cinema_scheduler/app/reminders/reminders_provider_model.dart';
 import 'package:flutter/material.dart';
@@ -24,41 +25,35 @@ class _RemindersPageState extends State<RemindersPage> {
 
   Widget _buildPage(RemindersProviderModel provider) {
     if (provider.isInLoading == true) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      return _buildDataLoadingWidget();
+    }
+
+    if (provider.isErrorOccurred == true) {
+      return _buildDataErrorWidget();
     }
 
     return Padding(
       padding: EdgeInsets.only(top: 24),
-      child: _buildContentWidget(provider),
+      child: _buildListViewWidget(provider),
     );
   }
 
-  Widget _buildContentWidget(RemindersProviderModel provider) {
-    return FutureBuilder(
-      future: provider.remindersDataFuture,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return _buildDataErrorWidget();
-        }
-
-        return _buildListViewWidget(snapshot, provider);
-      },
-    );
-  }
-
-  Widget _buildListViewWidget(
-      AsyncSnapshot<dynamic> snapshot, RemindersProviderModel provider) {
+  Widget _buildListViewWidget(RemindersProviderModel provider) {
     return MoviesListViewWidget(
-      items: snapshot.data,
+      items: provider.remindersCollection,
       emptyListViewIconData: Icons.notifications,
       emptyListViewText: EMPTY_LIST_VIEW_TEXT,
       onItemTappedFunction: provider.onListViewItemTapped,
     );
   }
 
+  Widget _buildDataLoadingWidget() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
   Widget _buildDataErrorWidget() {
-    return Text(LIST_VIEW_ERROR_TEXT);
+    return GeneralPageErrorWidget();
   }
 }

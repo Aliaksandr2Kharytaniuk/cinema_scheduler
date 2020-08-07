@@ -1,3 +1,4 @@
+import 'package:cinema_scheduler/app/common/general_page_error_widget.dart';
 import 'package:cinema_scheduler/app/common/movies_listview/movies_listview_widget.dart';
 import 'package:cinema_scheduler/app/common/search/search_text_field_widget.dart';
 import 'package:cinema_scheduler/app/home/home_provider_model.dart';
@@ -12,7 +13,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const String EMPTY_LIST_VIEW_TEXT =
       "Enter any search query to start\nbrowse movies";
-  static const String LIST_VIEW_ERROR_TEXT = "Ooops! Some error has occurred";
 
   @override
   Widget build(BuildContext context) {
@@ -51,38 +51,40 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildContentWidget(BuildContext context, HomeProviderModel provider) {
     if (provider.isInLoading == true) {
-      return Flexible(
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return _buildDataLoadingWidget();
+    }
+
+    if (provider.isErrorOccurred == true) {
+      return _buildDataErrorWidget();
     }
 
     return Flexible(
-      child: FutureBuilder(
-        future: provider.searchDataFuture,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return _buildDataErrorWidget();
-          }
-
-          return _buildListViewWidget(snapshot, provider);
-        },
-      ),
+      child: _buildListViewWidget(provider),
     );
   }
 
-  Widget _buildListViewWidget(
-      AsyncSnapshot<dynamic> snapshot, HomeProviderModel provider) {
+  Widget _buildListViewWidget(HomeProviderModel provider) {
     return MoviesListViewWidget(
-      items: snapshot.data?.results,
+      items: provider.searchResultModel?.results,
       emptyListViewIconData: Icons.search,
       emptyListViewText: EMPTY_LIST_VIEW_TEXT,
       onItemTappedFunction: provider.onListViewItemTapped,
     );
   }
 
+  Widget _buildDataLoadingWidget() {
+    return Flexible(
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
   Widget _buildDataErrorWidget() {
-    return Text(LIST_VIEW_ERROR_TEXT);
+    return Flexible(
+      child: Center(
+        child: GeneralPageErrorWidget(),
+      ),
+    );
   }
 }

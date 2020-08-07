@@ -4,11 +4,12 @@ import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:flutter/material.dart';
 
 class WatchlistProviderModel with ChangeNotifier {
-  Future<List<TitleModel>> watchlistDataFuture;
+  List<TitleModel> watchlistCollection;
   bool isInLoading;
+  bool isErrorOccurred;
 
   WatchlistProviderModel() {
-    _setWatchlistDataFuture();
+    _loadWatchlistItems();
   }
 
   void onListViewItemTapped(TitleModel listViewItem) {
@@ -17,27 +18,27 @@ class WatchlistProviderModel with ChangeNotifier {
 
   Future addToWatchlist(TitleModel model) async {
     await watchlistRepository.add(model);
-    _setWatchlistDataFuture();
+    _loadWatchlistItems();
   }
 
   Future removeFromWatchlist(TitleModel model) async {
     await watchlistRepository.remove(model);
-    _setWatchlistDataFuture();
+    _loadWatchlistItems();
   }
 
-  void _setWatchlistDataFuture() {
-    watchlistDataFuture = _loadWatchlistItems();
-  }
-
-  Future<List<TitleModel>> _loadWatchlistItems() async {
+  Future _loadWatchlistItems() async {
+    isErrorOccurred = false;
     isInLoading = true;
+
     notifyListeners();
 
-    var result = await watchlistRepository.getWatchlist();
-
-    isInLoading = false;
-    notifyListeners();
-
-    return result;
+    try {
+      watchlistCollection = await watchlistRepository.getWatchlist();
+    } catch (error) {
+      isErrorOccurred = true;
+    } finally {
+      isInLoading = false;
+      notifyListeners();
+    }
   }
 }
