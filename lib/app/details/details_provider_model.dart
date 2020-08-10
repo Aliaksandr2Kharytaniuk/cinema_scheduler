@@ -22,6 +22,7 @@ class DetailsProviderModel with ChangeNotifier {
     await watchlistProvider.addToWatchlist(titleModel);
 
     isInWatchlist = true;
+
     notifyListeners();
   }
 
@@ -46,6 +47,7 @@ class DetailsProviderModel with ChangeNotifier {
     await remindersProvider.addToReminders(titleModel);
 
     isInReminders = true;
+
     notifyListeners();
   }
 
@@ -56,6 +58,7 @@ class DetailsProviderModel with ChangeNotifier {
     await remindersProvider.removeFromReminders(titleModel);
 
     isInReminders = false;
+
     notifyListeners();
   }
 

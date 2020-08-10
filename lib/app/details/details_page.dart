@@ -1,3 +1,4 @@
+import 'package:cinema_scheduler/app/common/flushbar_notification_widget.dart';
 import 'package:cinema_scheduler/app/common/poster/poster_widget.dart';
 import 'package:cinema_scheduler/app/decorations/theme_provider.dart';
 import 'package:cinema_scheduler/app/details/details_provider_model.dart';
@@ -7,6 +8,7 @@ import 'package:cinema_scheduler/app/watch_list/watch_list_provider_model.dart';
 import 'package:cinema_scheduler/core/defines/pages_defines.dart';
 import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:expand_widget/expand_widget.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +26,14 @@ class DetailsPage extends StatefulWidget {
 class _DetailsState extends State<DetailsPage> {
   static const String ADD_TO_WATCHLIST_LABEL = "Add to watchlist";
   static const String REMOVE_FROM_WATCHLIST_LABEL = "Remove from watchlist";
+  static const String ADDED_TO_WATCHLIST_NOTIFICATION_MESSAGE =
+      "Added to watchlist";
+  static const String REMOVED_FROM_WATCHLIST_NOTIFICATION_MESSAGE =
+      "Removed from watchlist";
+  static const String ADDED_TO_REMINDERS_NOTIFICATION_MESSAGE =
+      "Added to reminders";
+  static const String REMOVED_FROM_REMINDERS_NOTIFICATION_MESSAGE =
+      "Removed from reminders";
   static const String REMINDERS_HERO_TAG = "rht";
 
   @override
@@ -123,6 +133,10 @@ class _DetailsState extends State<DetailsPage> {
           titleModel: provider.detailsModel.title,
           watchlistProvider: watchlistProvider,
         ),
+        FlushbarNotificationWidget(
+          isFlushbarSuccess: true,
+          flushbarMessage: ADDED_TO_WATCHLIST_NOTIFICATION_MESSAGE,
+        ),
       },
       icon: Icon(Icons.add),
       label: Text(
@@ -160,6 +174,10 @@ class _DetailsState extends State<DetailsPage> {
               titleModel: provider.detailsModel.title,
               watchlistProvider: watchlistProvider,
               remindersProvider: remindersProvider,
+            ),
+            FlushbarNotificationWidget(
+              isFlushbarSuccess: true,
+              flushbarMessage: REMOVED_FROM_WATCHLIST_NOTIFICATION_MESSAGE,
             ),
           },
           icon: Icon(Icons.remove),
@@ -205,6 +223,10 @@ class _DetailsState extends State<DetailsPage> {
           titleModel: provider.detailsModel.title,
           remindersProvider: remindersProvider,
         ),
+        FlushbarNotificationWidget(
+          isFlushbarSuccess: true,
+          flushbarMessage: ADDED_TO_REMINDERS_NOTIFICATION_MESSAGE,
+        ),
       },
       child: Icon(Icons.notifications_active),
       heroTag: REMINDERS_HERO_TAG,
@@ -222,6 +244,10 @@ class _DetailsState extends State<DetailsPage> {
         provider.onRemoveFromRemindersFloatingActionButtonTapped(
           titleModel: provider.detailsModel.title,
           remindersProvider: remindersProvider,
+        ),
+        FlushbarNotificationWidget(
+          isFlushbarSuccess: true,
+          flushbarMessage: REMOVED_FROM_REMINDERS_NOTIFICATION_MESSAGE,
         ),
       },
       child: Icon(Icons.notifications_off),
