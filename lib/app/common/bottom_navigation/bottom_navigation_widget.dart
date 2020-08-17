@@ -26,18 +26,21 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
       currentIndex: widget.selectedIndex,
+      backgroundColor: Colors.black,
+      unselectedItemColor: Colors.white,
+      selectedItemColor: Colors.blue,
       onTap: widget.onTappedFunction,
     );
   }
 
   List<BottomNavigationBarItem> _createBottomNavigationBarItems() {
     return widget.pages
-      .map(
-        (page) => BottomNavigationBarItem(
-          icon: Icon(bottomNavigationPagesMap[page].icon),
-          title: Text(bottomNavigationPagesMap[page].title),
-        ),
-      )
-      .toList();
+        .map(
+          (page) => BottomNavigationBarItem(
+            icon: Icon(bottomNavigationPagesMap[page].icon),
+            title: Text(bottomNavigationPagesMap[page].title),
+          ),
+        )
+        .toList();
   }
 }

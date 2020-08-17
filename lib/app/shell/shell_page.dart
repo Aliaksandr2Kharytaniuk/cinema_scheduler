@@ -29,6 +29,7 @@ class _ShellPageState extends State<ShellPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(provider.pageTitle),
+        backgroundColor: Colors.black,
       ),
       body: IndexedStack(
         index: provider.selectedPageIndex,

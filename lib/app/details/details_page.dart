@@ -53,6 +53,7 @@ class _DetailsState extends State<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(PagesDefines.DETAILS_PAGE_TITLE),
+        backgroundColor: Colors.black,
       ),
       body: _buildScafoldBodyWidget(context, provider),
       floatingActionButton: _buildScafoldFloatingActionButtonWidget(
