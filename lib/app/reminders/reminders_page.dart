@@ -12,7 +12,6 @@ class RemindersPage extends StatefulWidget {
 class _RemindersPageState extends State<RemindersPage> {
   static const String EMPTY_LIST_VIEW_TEXT =
       "You have no reminders\nOpen any watchlisted movie to add them!";
-  static const String LIST_VIEW_ERROR_TEXT = "Ooops! Some error has occurred";
 
   @override
   Widget build(BuildContext context) {

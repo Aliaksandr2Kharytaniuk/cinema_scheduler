@@ -1,6 +1,7 @@
 import 'package:cinema_scheduler/core/json_serializable_converter.dart';
 import 'package:cinema_scheduler/core/services/navigation_service.dart';
 import 'package:cinema_scheduler/core/get_it_extension.dart';
+import 'package:cinema_scheduler/core/services/notification_service.dart';
 import 'package:cinema_scheduler/data/cache/app_database.dart';
 import 'package:cinema_scheduler/data/repositories/details/details_repository.dart';
 import 'package:cinema_scheduler/data/repositories/reminders_repository/reminders_repository.dart';
@@ -16,6 +17,7 @@ JsonSerializableConverter get jsonSerializableConverter =>
     JsonSerializableConverter();
 
 NavigationService get navigationService => _ioc.get<NavigationService>();
+NotificationService get notificationService => _ioc.get<NotificationService>();
 
 SearchRepository get searchRepository => _ioc.get<SearchRepository>();
 DetailsRepository get detailsRepository => _ioc.get<DetailsRepository>();
@@ -33,6 +35,7 @@ class DependencyService {
 
     _ioc
       ..registerLazySingleton(() => NavigationService())
+      ..registerLazySingleton(() => NotificationService())
       ..registerLazySingleton(() => SearchRepository())
       ..registerLazySingleton(() => DetailsRepository())
       ..registerLazySingleton(() => WatchlistRepository())

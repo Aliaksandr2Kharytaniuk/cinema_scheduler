@@ -6,6 +6,15 @@ import 'package:cinema_scheduler/data/models/app_models/title/title_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class DetailsProviderModel with ChangeNotifier {
+  static const String ADDED_TO_WATCHLIST_NOTIFICATION_MESSAGE =
+      "Added to watchlist";
+  static const String REMOVED_FROM_WATCHLIST_NOTIFICATION_MESSAGE =
+      "Removed from watchlist";
+  static const String ADDED_TO_REMINDERS_NOTIFICATION_MESSAGE =
+      "Added to reminders";
+  static const String REMOVED_FROM_REMINDERS_NOTIFICATION_MESSAGE =
+      "Removed from reminders";
+
   DetailsModel detailsModel;
   bool isInWatchlist;
   bool isInReminders;
@@ -24,6 +33,9 @@ class DetailsProviderModel with ChangeNotifier {
     isInWatchlist = true;
 
     notifyListeners();
+
+    notificationService
+        .showSuccessNotification(ADDED_TO_WATCHLIST_NOTIFICATION_MESSAGE);
   }
 
   Future onRemoveFromWatchlistFloatingActionButtonTapped({
@@ -38,6 +50,9 @@ class DetailsProviderModel with ChangeNotifier {
     isInReminders = false;
 
     notifyListeners();
+
+    notificationService
+        .showSuccessNotification(REMOVED_FROM_WATCHLIST_NOTIFICATION_MESSAGE);
   }
 
   Future onAddToRemindersFloatingActionButtonTapped({
@@ -49,6 +64,9 @@ class DetailsProviderModel with ChangeNotifier {
     isInReminders = true;
 
     notifyListeners();
+
+    notificationService
+        .showSuccessNotification(ADDED_TO_REMINDERS_NOTIFICATION_MESSAGE);
   }
 
   Future onRemoveFromRemindersFloatingActionButtonTapped({
@@ -60,6 +78,9 @@ class DetailsProviderModel with ChangeNotifier {
     isInReminders = false;
 
     notifyListeners();
+
+    notificationService
+        .showSuccessNotification(REMOVED_FROM_REMINDERS_NOTIFICATION_MESSAGE);
   }
 
   Future _loadOverviewDetails(String titleId) async {

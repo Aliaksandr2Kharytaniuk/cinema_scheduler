@@ -12,7 +12,6 @@ class WatchListPage extends StatefulWidget {
 class _WatchListState extends State<WatchListPage> {
   static const String EMPTY_LIST_VIEW_TEXT =
       "You have no items in watchlist\nOpen any movie to add them!";
-  static const String LIST_VIEW_ERROR_TEXT = "Ooops! Some error has occurred";
 
   @override
   Widget build(BuildContext context) {

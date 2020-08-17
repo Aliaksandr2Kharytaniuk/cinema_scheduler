@@ -8,6 +8,7 @@ import 'package:cinema_scheduler/core/pages.dart';
 import 'package:cinema_scheduler/core/services/dependency_service.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class _MainAppState extends State<MainApp> {
         ChangeNotifierProvider(create: (_) => WatchlistProviderModel()),
         ChangeNotifierProvider(create: (_) => RemindersProviderModel()),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: MATERIAL_APP_TITLE,
         navigatorKey: navigationService.navigatorKey,
         home: SplashScreen.callback(
