@@ -55,7 +55,10 @@ class _DetailsState extends State<DetailsPage> {
         title: Text(PagesDefines.DETAILS_PAGE_TITLE),
         backgroundColor: Colors.black,
       ),
-      body: _buildScafoldBodyWidget(context, provider),
+      body: Container(
+        color: Colors.black87,
+        child: _buildScafoldBodyWidget(context, provider),
+      ),
       floatingActionButton: _buildScafoldFloatingActionButtonWidget(
         context,
         provider,
@@ -73,18 +76,16 @@ class _DetailsState extends State<DetailsPage> {
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: 24.0),
-          _buildHeaderWidget(context, provider),
-          SizedBox(height: 24.0),
-          _buildDescriptionWidget(context, provider),
-          SizedBox(height: 24.0),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(height: 24.0),
+        _buildHeaderWidget(context, provider),
+        SizedBox(height: 24.0),
+        _buildDescriptionWidget(context, provider),
+        SizedBox(height: 24.0),
+      ],
     );
   }
 
@@ -260,7 +261,9 @@ class _DetailsState extends State<DetailsPage> {
       children: [
         Text(
           '${provider.detailsModel?.title?.title}',
-          style: ThemeProvider.getTextTheme(context).headline6,
+          style: ThemeProvider.getTextTheme(context).headline6.copyWith(
+                color: Colors.white,
+              ),
         ),
         SizedBox(height: 12.0),
         RatingInformationWidget(
@@ -282,8 +285,10 @@ class _DetailsState extends State<DetailsPage> {
             padding: const EdgeInsets.only(right: 8.0),
             child: Chip(
               label: Text(genre),
-              labelStyle: ThemeProvider.getTextTheme(context).caption,
-              backgroundColor: Colors.black12,
+              labelStyle: ThemeProvider.getTextTheme(context).caption.copyWith(
+                    color: Colors.white,
+                  ),
+              backgroundColor: Colors.black54,
             ),
           );
         })
@@ -298,9 +303,9 @@ class _DetailsState extends State<DetailsPage> {
       child: ExpandText(
         '${provider.detailsModel.plotSummary?.text}',
         maxLines: 6,
-        arrowColor: Colors.black45,
+        arrowColor: Colors.white54,
         style: ThemeProvider.getTextTheme(context).bodyText2.copyWith(
-              color: Colors.black45,
+              color: Colors.white,
               fontSize: 16.0,
             ),
       ),

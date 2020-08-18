@@ -17,7 +17,10 @@ class _WatchListState extends State<WatchListPage> {
   Widget build(BuildContext context) {
     return Consumer<WatchlistProviderModel>(
       builder: (context, WatchlistProviderModel provider, child) {
-        return _buildPage(provider);
+        return Container(
+          color: Colors.black87,
+          child: _buildPage(provider),
+        );
       },
     );
   }

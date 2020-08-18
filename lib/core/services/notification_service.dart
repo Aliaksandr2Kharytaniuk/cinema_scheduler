@@ -30,8 +30,6 @@ class NotificationService {
         size: 28,
         color: Colors.green.shade300,
       ),
-      backgroundColor: Color(0x99000000),
-      barBlur: 0.0,
     );
   }
 
@@ -59,8 +57,6 @@ class NotificationService {
         size: 28,
         color: Colors.red.shade300,
       ),
-      backgroundColor: Color(0x99000000),
-      barBlur: 0.0,
     );
   }
 }

@@ -14,7 +14,7 @@ class GeneralPageErrorWidget extends StatelessWidget {
           Icon(
             Icons.error,
             size: 80,
-            color: Colors.black12,
+            color: Colors.white54,
           ),
           SizedBox(
             height: 12,
@@ -23,7 +23,7 @@ class GeneralPageErrorWidget extends StatelessWidget {
             ERROR_TEXT,
             textAlign: TextAlign.center,
             style: ThemeProvider.getTextTheme(context).subtitle1.copyWith(
-                  color: Colors.black26,
+                  color: Colors.white54,
                 ),
           ),
         ],

@@ -8,8 +8,8 @@ class MorePage extends StatefulWidget {
 class _MorePageState extends State<MorePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("More page")
+    return Container(
+      color: Colors.black87,
     );
   }
 }

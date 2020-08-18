@@ -24,18 +24,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPage(HomeProviderModel provider) {
-    return Padding(
-      padding: EdgeInsets.only(top: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          _buildSearchWidget(provider),
-          SizedBox(
-            height: 24,
-          ),
-          _buildContentWidget(context, provider),
-        ],
+    return Container(
+      color: Colors.black87,
+      child: Padding(
+        padding: EdgeInsets.only(top: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            _buildSearchWidget(provider),
+            SizedBox(
+              height: 24,
+            ),
+            _buildContentWidget(context, provider),
+          ],
+        ),
       ),
     );
   }

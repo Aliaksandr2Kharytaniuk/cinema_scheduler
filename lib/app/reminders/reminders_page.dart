@@ -17,7 +17,10 @@ class _RemindersPageState extends State<RemindersPage> {
   Widget build(BuildContext context) {
     return Consumer<RemindersProviderModel>(
       builder: (context, RemindersProviderModel provider, child) {
-        return _buildPage(provider);
+        return Container(
+          color: Colors.black87,
+          child: _buildPage(provider),
+        );
       },
     );
   }

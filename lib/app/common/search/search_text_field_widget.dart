@@ -23,14 +23,30 @@ class _SearchTextFieldWidgetState extends State<SearchTextFieldWidget> {
         builder: (context) => TextField(
           textInputAction: TextInputAction.search,
           onSubmitted: widget.onSubmittedFunction,
+          style: ThemeProvider.getTextTheme(context).subtitle1.copyWith(
+                color: Colors.white,
+              ),
           decoration: InputDecoration(
+            fillColor: Colors.black,
+            filled: true,
+            border: InputBorder.none,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(color: Colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            contentPadding:
+                EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
             icon: Icon(
               Icons.search,
-              color: Colors.black45,
+              color: Colors.white,
             ),
             hintText: SEARCH_HINT_TEXT,
             hintStyle: ThemeProvider.getTextTheme(context).subtitle1.copyWith(
-                  color: Colors.black26,
+                  color: Colors.white54,
                 ),
           ),
         ),

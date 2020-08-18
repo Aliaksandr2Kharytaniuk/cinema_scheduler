@@ -15,7 +15,7 @@ class RatingInformationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var captionStyle = ThemeProvider.getTextTheme(context)
         .caption
-        .copyWith(color: Colors.black45);
+        .copyWith(color: Colors.white54);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

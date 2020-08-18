@@ -53,7 +53,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
         vertical: 8.0,
       ),
       child: Container(
-        decoration: BoxDecoration(color: Colors.white70),
+        decoration: BoxDecoration(color: Colors.black),
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(
             horizontal: 12.0,
@@ -65,7 +65,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
           trailing: Icon(
             Icons.keyboard_arrow_right,
             size: 30.0,
-            color: Colors.black12,
+            color: Colors.white54,
           ),
         ),
       ),
@@ -79,7 +79,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
         border: Border(
           right: BorderSide(
             width: 1.0,
-            color: Colors.black12,
+            color: Colors.white54,
           ),
         ),
       ),
@@ -95,7 +95,9 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         '${model.title}',
-        style: ThemeProvider.getTextTheme(context).subtitle1,
+        style: ThemeProvider.getTextTheme(context).subtitle1.copyWith(
+              color: Colors.white,
+            ),
       ),
     );
   }
@@ -124,7 +126,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
       Icon(
         Icons.calendar_today,
         size: 10,
-        color: Colors.black45,
+        color: Colors.white54,
       ),
       SizedBox(
         width: 4,
@@ -133,7 +135,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
         '${model.year}',
         style: ThemeProvider.getTextTheme(context)
             .caption
-            .copyWith(color: Colors.black45),
+            .copyWith(color: Colors.white54),
       ),
       SizedBox(
         width: 12,
@@ -146,7 +148,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
       Icon(
         Icons.timer,
         size: 12,
-        color: Colors.black45,
+        color: Colors.white54,
       ),
       SizedBox(
         width: 2,
@@ -155,7 +157,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
         '${model.runningTimeInMinutes} ' + MINUTES_TEXT,
         style: ThemeProvider.getTextTheme(context)
             .caption
-            .copyWith(color: Colors.black45),
+            .copyWith(color: Colors.white54),
       ),
     ];
   }
@@ -169,7 +171,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
           Icon(
             widget.emptyListViewIconData,
             size: 80,
-            color: Colors.black12,
+            color: Colors.white54,
           ),
           SizedBox(
             height: 12,
@@ -178,7 +180,7 @@ class _MoviesListViewWidgetState extends State<MoviesListViewWidget> {
             widget.emptyListViewText,
             textAlign: TextAlign.center,
             style: ThemeProvider.getTextTheme(context).subtitle1.copyWith(
-                  color: Colors.black26,
+                  color: Colors.white54,
                 ),
           ),
         ],
